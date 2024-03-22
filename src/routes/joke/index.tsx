@@ -1,12 +1,27 @@
 import { component$, useSignal } from "@builder.io/qwik";
+import { routeLoader$ } from "@builder.io/qwik-city";
+
+interface DadJoke {
+	id: string;
+	joke: string;
+	status: number;
+}
+
+export const useDadJoke = routeLoader$(async () => {
+	const response = await fetch("https://icanhazdadjoke.com/", {
+		headers: { Accept: "application/json" },
+	});
+
+	const data = await response.json();
+	return data as DadJoke;
+});
 
 export default component$(() => {
-	const countJoke = useSignal(0);
+	const dadJoke = useDadJoke();
 	return (
-		<section class="section bright">
-			A joke!
-			<p>Number of joke {countJoke.value}</p>
-			<button onClick$={() => countJoke.value++}>Increment joke</button>
-		</section>
+		<>
+			<h1>Dad Joke</h1>
+			<p>{dadJoke.value.joke}</p>
+		</>
 	);
 });
