@@ -7,16 +7,18 @@ interface ItemProps {
 	price?: number;
 }
 
-export const Item = component$<ItemProps>((props) => {
-	return (
-		<ul>
-			{props.name && <li>name: {props.name}</li>}
-			{props.quantity && <li>quantity: {props.quantity}</li>}
-			{props.description && <li>description: {props.description}</li>}
-			{props.price && <li>price: {props.price}</li>}
-		</ul>
-	);
-});
+export const Item = component$<ItemProps>(
+	({ name, quantity, description = "No description", price }) => {
+		return (
+			<ul>
+				{name && <li>name: {name}</li>}
+				{quantity && <li>quantity: {quantity}</li>}
+				{description && <li>description: {description}</li>}
+				{price && <li>price: {price}</li>}
+			</ul>
+		);
+	},
+);
 
 export default component$(() => {
 	return (
