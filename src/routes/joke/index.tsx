@@ -12,8 +12,7 @@ export const useDadJoke = routeLoader$(async () => {
 		headers: { Accept: "application/json" },
 	});
 
-	const data = await response.json();
-	return data as DadJoke;
+	return (await response.json()) as DadJoke;
 });
 
 export default component$(() => {
@@ -21,7 +20,7 @@ export default component$(() => {
 	return (
 		<>
 			<h1>Dad Joke</h1>
-			<p>{dadJoke.value.joke}</p>
+			<p style={"text-align: center"}>{dadJoke.value.joke}</p>
 		</>
 	);
 });
